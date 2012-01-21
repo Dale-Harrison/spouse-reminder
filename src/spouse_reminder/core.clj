@@ -8,7 +8,8 @@
                  auth
                  form-authentication
                  validation))
-  (:require [spouse-reminder.database :as db]))
+  (:require [spouse-reminder.database :as db]
+	    [spouse-reminder.remservice :as service]))
 
 (comment *********************** login form config *********************)
 
@@ -112,19 +113,24 @@
   (if (= (:usertype (db/get-user username) "Member"))
     true
     false))
+
+(defn valid-user-password [username password]
+  (if (= (db/get-user-password username) password)
+    true
+    false))
  
 (defrecord DemoAdapter []
   FormAuthAdapter
   (load-user
    [this username password]
    (let [login {:username username :password password}]
-     (if (= (is-member username) true)
+     (if (= (is-member :username) true)
            (merge login {:roles #{:member}})
            login)))
   (validate-password
    [this]
    (fn [m]
-     (if (= (isAdmin (:username m) (:password m))
+     (if (= (valid-user-password (:username m) (:password m)))
        m
        (add-validation-error m "Password is incorrect!")))))
 
@@ -139,11 +145,13 @@
   (GET "/logout*" [] (logout! properties))
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
+  (GET "/remservice" {params :params} (service/get-service-reminders params))
   (form-authentication-routes (fn [_ c] (layout c))
                               (form-authentication-adapter)))
 
 (def security-config
      [#"/login.*" :ssl
+      #"/remservice.*" :ssl
       #".*.css|.*.png" :any-channel
       #".*" :nossl])
 

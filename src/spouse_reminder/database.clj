@@ -34,4 +34,4 @@
    :where {:username user}))
 
 (defn get-user-password [user]
-  (map :password (fetch :reminders :where {:username user})))
+  (map :password (fetch :users :where {:username user})))
