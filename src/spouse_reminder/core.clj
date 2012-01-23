@@ -1,6 +1,6 @@
 (ns spouse-reminder.core
   (:use (ring.adapter jetty)
-        (ring.middleware file)
+        (ring.middleware file params keyword-params)
         (compojure core)
         (hiccup core page-helpers form-helpers)
         (sandbar core
@@ -9,7 +9,8 @@
                  form-authentication
                  validation))
   (:require [spouse-reminder.database :as db]
-	    [spouse-reminder.remservice :as service]))
+	    [spouse-reminder.remservice :as service]
+	    [compojure.handler :as handler]))
 
 (comment *********************** login form config *********************)
 
@@ -114,23 +115,28 @@
     true
     false))
 
-(defn valid-user-password [username password]
+(comment (defn valid-user-password [username password]
   (if (= (db/get-user-password username) password)
     true
-    false))
+    false)))
+
+(defn valid-user-password [username password]
+  (do
+    (prn username password)
+    true))
  
 (defrecord DemoAdapter []
   FormAuthAdapter
   (load-user
    [this username password]
    (let [login {:username username :password password}]
-     (if (= (is-member :username) true)
-           (merge login {:roles #{:member}})
-           login)))
+     (if (is-member username)
+         (merge login {:roles #{:member}})
+          login)))
   (validate-password
    [this]
    (fn [m]
-     (if (= (valid-user-password (:username m) (:password m)))
+     (if (valid-user-password (:username m) (:password m))
        m
        (add-validation-error m "Password is incorrect!")))))
 
@@ -145,7 +151,7 @@
   (GET "/logout*" [] (logout! properties))
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
-  (GET "/remservice" {params :params} (service/get-service-reminders params))
+  (GET "/remservice*" {params :params} (service/get-service-reminders params))
   (form-authentication-routes (fn [_ c] (layout c))
                               (form-authentication-adapter)))
 
@@ -156,8 +162,9 @@
       #".*" :nossl])
 
 (def app (-> my-routes
+	     handler/api
              (with-security form-authentication)
-             wrap-stateful-session
+	     wrap-stateful-session
              (wrap-file "public")
              (with-secure-channel security-config 8080 8443)))
 

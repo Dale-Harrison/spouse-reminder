@@ -23,10 +23,16 @@
     :users
     :where {:username user})))
 
+(defmacro json-fetch [& args]
+  `(str "[" (apply str (interpose "," (fetch ~@args :as :json))) "]"))
+
 (defn get-reminders [user]
   (fetch
    :reminders
    :where {:user user}))
+
+(defn get-reminders-json [user]
+  (json-fetch :reminders :where {:user user}))
 
 (defn get-user [user]
   (fetch
@@ -34,4 +40,4 @@
    :where {:username user}))
 
 (defn get-user-password [user]
-  (map :password (fetch :users :where {:username user})))
+  (get (fetch-one :users :where {:username user}) :password))
