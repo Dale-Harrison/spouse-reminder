@@ -1,6 +1,8 @@
 (ns spouse-reminder.database
   (:use somnium.congomongo)
-  (:use clj-time.core))
+  (:use clj-time.core)
+  (:use clojure.contrib.json)
+  (:require [clojure.contrib.str-utils2 :as string]))
 
 (def conn
      (make-connection "spousereminder"
@@ -11,8 +13,11 @@
 
 (mongo! :db "reminders")
 
+(defn string-id [map]
+  (assoc map :_id (str (map :_id)))) 
+
 (defn add-reminder [title user date body]
-  (insert! :reminders {:title title :user user :date (str (now)) :body body}))
+  (insert! :reminders {:title title :user user :date date :body body}))
 
 (defn add-user [username password email spouse]
   (insert! :users {:username username :password password :email email :spouse spouse}))
@@ -23,16 +28,13 @@
     :users
     :where {:username user})))
 
-(defmacro json-fetch [& args]
-  `(str "[" (apply str (interpose "," (fetch ~@args :as :json))) "]"))
-
 (defn get-reminders [user]
   (fetch
    :reminders
    :where {:user user}))
 
 (defn get-reminders-json [user]
-  (json-fetch :reminders :where {:user user}))
+  (str "{\"reminders\": " (json-str (map string-id (get-reminders user))) "}"))
 
 (defn get-user [user]
   (fetch

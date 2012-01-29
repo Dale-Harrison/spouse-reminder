@@ -10,7 +10,8 @@
                  validation))
   (:require [spouse-reminder.database :as db]
 	    [spouse-reminder.remservice :as service]
-	    [compojure.handler :as handler]))
+	    [compojure.handler :as handler]
+	    [ring.util.response :as ringresp]))
 
 (comment *********************** login form config *********************)
 
@@ -87,8 +88,8 @@
   (data-view "Reminders"
       (query "Member" (get-reminders-data))))
 
-(defn add-reminder-view []
-  (form-to [:post "/add-reminder"]
+(defn add-reminder-view-data []
+  (form-to [:post "/reminders/add"]
               [:fieldset
                [:legend "Create a new reminder"]
                [:ol
@@ -103,6 +104,14 @@
 		 (text-area :date)]
 		[:button {:type "submit"} "Post!"]]]))
 
+(defn add-reminder-view []
+  (query "Member" (add-reminder-view-data)))
+
+(defn add-reminder-post [title date body]
+  (do
+    (db/add-reminder title (current-username) date body)
+    (ringresp/redirect "/reminders")))
+
 (comment ******************** Post functions ************************)
 
 (defn add-reminder [title body date]
@@ -115,15 +124,10 @@
     true
     false))
 
-(comment (defn valid-user-password [username password]
+(defn valid-user-password [username password]
   (if (= (db/get-user-password username) password)
     true
-    false)))
-
-(defn valid-user-password [username password]
-  (do
-    (prn username password)
-    true))
+    false))
  
 (defrecord DemoAdapter []
   FormAuthAdapter
@@ -136,7 +140,7 @@
   (validate-password
    [this]
    (fn [m]
-     (if (valid-user-password (:username m) (:password m))
+     (if (= (:username m) (:password m))
        m
        (add-validation-error m "Password is incorrect!")))))
 
@@ -147,7 +151,9 @@
 
 (defroutes my-routes
   (GET "/" [] (layout (home-view)))
-  (GET "/reminders*" [] (layout (get-user-reminders-view)))
+  (GET "/reminders" [] (layout (get-user-reminders-view)))
+  (GET "/reminders/add" [] (layout (add-reminder-view)))
+  (POST "/reminders/add" [title body date] (add-reminder-post title body date))
   (GET "/logout*" [] (logout! properties))
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
@@ -157,7 +163,6 @@
 
 (def security-config
      [#"/login.*" :ssl
-      #"/remservice.*" :ssl
       #".*.css|.*.png" :any-channel
       #".*" :nossl])
 

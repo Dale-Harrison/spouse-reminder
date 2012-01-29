@@ -11,5 +11,6 @@
 
 (defn get-service-reminders [params]
   (if (service-auth-request (:username params)(:password params))
-	 (dbs/get-reminders-json (:username params))))
+    (dbs/get-reminders-json (:username params))
+    (str "Authentication Error")))
 
