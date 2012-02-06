@@ -17,7 +17,7 @@
   (assoc map :_id (str (map :_id)))) 
 
 (defn add-reminder [title user date body]
-  (insert! :reminders {:title title :user user :date date :body body}))
+  (insert! :reminders {:title title :user user :date date :body body :addedon (str (now))}))
 
 (defn add-user [username password email spouse]
   (insert! :users {:username username :password password :email email :spouse spouse}))

@@ -157,7 +157,8 @@
   (GET "/logout*" [] (logout! properties))
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
-  (GET "/remservice*" {params :params} (service/get-service-reminders params))
+  (GET "/remservice/reminders" {params :params} (service/get-service-reminders params))
+  (GET "/remservice/hello" {params :params} (service/hello params))
   (form-authentication-routes (fn [_ c] (layout c))
                               (form-authentication-adapter)))
 
