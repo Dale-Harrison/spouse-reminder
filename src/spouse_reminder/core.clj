@@ -25,7 +25,23 @@
 (defn query [type]
  (ensure-any-role-if (= type :top-secret) #{:admin}
                      (= type :members-only) #{:member}
-                     (str (name type) " data")))
+                     (str (name type) " data")))		     
+
+(comment *********************** regular expressions ********************)
+
+(defn first-match [m]
+  (if (coll? m) (first m) m))
+
+(defn get-body [entry]
+  (first-match (re-find #"(.*)(?=(.\d{1,2})/(\d{1,2})/(\d{4}|\d{2})\s(\d{1,2}):(\d{1,2}))" entry)))
+
+(defn get-date [entry]
+  (first-match (re-find #"(\d{1,2})/(\d{1,2})/(\d{4}|\d{2})\s(\d{1,2}):(\d{1,2})" entry)))
+
+(defn get-location [entry]
+  (if (= (re-find #"@.*" entry) nil)
+    ""
+    (re-find #"@.*" entry)))
 
 (comment *********************** page views *****************************)
 
@@ -80,7 +96,7 @@
 		      data))
 
 (defn get-reminders-data []
-  [:div (link-to "reminder" "You Reminders!")]
+  [:div (link-to "/reminders/add" "Add Reminder")]
   [:br]
   [:div (map format-reminder (db/get-reminders "Dale"))])
 
@@ -94,28 +110,22 @@
                [:legend "Create a new reminder"]
                [:ol
                 [:li
-                 [:label {:for :title} "Title"]
-                 (text-field :title)]
-                [:li
-                 [:label {:for :body} "Body"]
-                 (text-area :body)]
-		[:li
-		 [:lable {:for :date} "Date"]
-		 (text-area :date)]
+                 [:label {:for :reminder} "Reminder"]
+                 (text-area :reminder)]
 		[:button {:type "submit"} "Post!"]]]))
 
 (defn add-reminder-view []
   (query "Member" (add-reminder-view-data)))
 
-(defn add-reminder-post [title date body]
+(defn add-reminder-post [reminder]
   (do
-    (db/add-reminder title (current-username) date body)
+    (db/add-reminder (current-username) (get-body reminder) (get-date reminder) (get-location reminder))
     (ringresp/redirect "/reminders")))
 
 (comment ******************** Post functions ************************)
 
 (defn add-reminder [title body date]
-  (db/add-reminder title body date (current-username)))
+  (db/add-reminder body date (current-username)))
 
 (comment ******************** user validation ***********************)
 
@@ -153,7 +163,7 @@
   (GET "/" [] (layout (home-view)))
   (GET "/reminders" [] (layout (get-user-reminders-view)))
   (GET "/reminders/add" [] (layout (add-reminder-view)))
-  (POST "/reminders/add" [title body date] (add-reminder-post title body date))
+  (POST "/reminders/add" [reminder] (add-reminder-post reminder))
   (GET "/logout*" [] (logout! properties))
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
