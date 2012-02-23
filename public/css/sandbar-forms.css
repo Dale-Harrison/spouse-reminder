@@ -1,9 +1,3 @@
-html, body {
-   font-family: Verdana, Arial, Helvetica, sans-serif;
-   font-size: 12px;
-   background-color: #ffffff;
-}
-
 div.sandbar-form {
    font-family: Arial, Helvetica, sans-serif;
    color: #666;
@@ -12,7 +6,7 @@ div.sandbar-form {
    font-size: 12px;
 }
 
-div.sandbar-form input.sandbar-textfield {
+div.sandbar-form input.textfield {
    font-family: Arial, Helvetica, sans-serif;
    font-size: 15px;
    border: 1px solid #ccc;
@@ -53,15 +47,6 @@ div.sandbar-form input.sandbar-button {
    color: #4d4d4d;
 }
 
-div.sandbar-form div.login-form {
-   display: inline-block;
-}
-
-div.sandbar-form div.login-buttons {
-   padding-top: 5px;
-   text-align: center;
-}
-
 div.sandbar-form div.error-message {
    height: 24px;
    padding-left: 24px;
@@ -86,9 +71,46 @@ div.sandbar-form div.field-label span.required {
    color: orange;
 }
 
-div.error, div.message, div.warning, div.help {
-   background-color: #ffffcc;
-   border: 1px solid #ccc;
+/* over under form */
+
+div.sandbar-form div.form-header {
+   padding: 3px;
+   background: #e8ecf5 url(../images/form_blue_edit.png) no-repeat 4px 4px;
+   border: 1px solid #C0C0C0;
+   margin-bottom: 10px;
+   padding-left: 30px;
+}
+
+div.sandbar-form div.form-header table {
+ width: 100%;
+}
+
+div.sandbar-form span.form-title {
+ font-family: Arial, Verdana, Arial, Helvetica, sans-serif;
+ font-size: 18px;
+ font-weight: bold;
+ height: 40px;
+ vertical-align: top;
+ color: #666666;
+}
+
+div.form-header span.header-buttons {
+ text-align: right;
+}
+
+div.sandbar-form div.form-footer {
+ background: #e8ecf5;
+ padding: 5px;
+ border: 1px solid #C0C0C0;
+ margin-top: 10px;
+}
+
+div.sandbar-form div.buttons {
+   padding-top: 5px;
+   text-align: right;
+}
+
+div.form-error-message {
    color: #666;
    font-family: Arial, Helvetica, sans-serif;
    font-weight: bold;
@@ -96,27 +118,7 @@ div.error, div.message, div.warning, div.help {
    padding: 5px;
    text-align: left;
    vertical-align: bottom;
-}
-
-/* use a different color for the errors */
-div.error {
-   background: #ffffcc url(../images/error.png) no-repeat 3px 3px;
-   padding-left: 22px;
-   border: 1px solid red;
-}
-
-div.warning {
    background: #ffffcc url(../images/warning.png) no-repeat 3px 3px;
    padding-left: 22px;
    border: 1px solid yellow;
-}
-
-div.message {
-   background: #ffffcc url(../images/about.png) no-repeat 3px 3px;
-   padding-left: 22px;
-}
-
-div.help {
-   background: #ffffcc url(../images/help.png) no-repeat 3px 3px;
-   padding-left: 22px;
 }

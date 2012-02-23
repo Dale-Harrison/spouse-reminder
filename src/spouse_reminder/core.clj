@@ -47,19 +47,32 @@
 
 (defn layout [content]
   (html
-   (doctype :html4)
+   (doctype :html5)
    [:html
     [:head
-     (stylesheet "sandbar.css")
-     (icon "icon.png")]
-    [:body
-     [:h2 "Sandbar Security Example"]
-     content
-     [:br]
-     [:div (if-let [username (current-username)]
-             [:div
-              (str "You are logged in as " username ". ")
-              (link-to "logout" "Logout")])]]]))
+     (stylesheet "main.css")
+     (stylesheet "sandbar-forms.css")
+     (include-js "jquery.form.js")]
+    [:body {:id "top"}
+     [:div {:class "wrapper col1"}
+      [:div {:id "header"}
+       [:div {:id "logo"}
+	[:h1 [:a {:href "#"} "Spouse Reminder"]]
+	[:p "Nagging in the future"]]
+       [:br {:class "clear"}]]]
+     [:div {:class "wrapper col3"}
+      [:div {:id "container"}
+       [:div {:class "homepage"}
+	[:ul
+	 [:li [:h2 "Item 1"][:p "This is item 1"]]
+	 [:li [:p content]]
+	 [:li {:class "last"} [:h2 "Item 3"][:p "This is item 3"]]]]]
+      [:br {:class "clear"}]]
+     [:div {:class "wrapper col4"}
+      [:div {:id "footer"} "This is the bottom"]]
+     [:div {:class "wrapper col5"}
+      [:div {:id "copyright"}
+       (str "You are logged in as tofix")]]]]))
 
 (defn data-view [title data & links]
   [:div
