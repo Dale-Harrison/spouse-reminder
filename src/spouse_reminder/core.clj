@@ -13,7 +13,7 @@
 	    [compojure.handler :as handler]
 	    [ring.util.response :as ringresp]))
 
-(comment *********************** login form config *********************)
+(comment *********************** security config *********************)
 
 (def properties
      {:username "Username"
@@ -22,10 +22,10 @@
       :password-validation-error "Enter a password!"
       :logout-page "/after-logout"})
 
-(defn query [type]
- (ensure-any-role-if (= type :top-secret) #{:admin}
-                     (= type :members-only) #{:member}
-                     (str (name type) " data")))		     
+(defn query [type data]
+  (ensure-any-role-if (= type "Member") #{:member}
+		      (= type "Admin") #{:admin}
+		      data))
 
 (comment *********************** regular expressions ********************)
 
@@ -60,32 +60,31 @@
 	[:h1 [:a {:href "#"} "Spouse Reminder"]]
 	[:p "Nagging in the future"]]
        [:br {:class "clear"}]]]
-     [:div {:class "wrapper col3"}
-      [:div {:id "container"}
-       [:div {:class "homepage"}
-	[:ul
-	 [:li [:h2 "Item 1"][:p "This is item 1"]]
-	 [:li [:p content]]
-	 [:li {:class "last"} [:h2 "Item 3"][:p "This is item 3"]]]]]
-      [:br {:class "clear"}]]
+     content
      [:div {:class "wrapper col4"}
       [:div {:id "footer"} "This is the bottom"]]
      [:div {:class "wrapper col5"}
       [:div {:id "copyright"}
        (str "You are logged in as tofix")]]]]))
 
-(defn data-view [title data & links]
-  [:div
-   [:h3 title]
-   [:p data]
-   (if (seq links) links [:div (link-to "/" "Home")])])
+(defn wrapper-col-3-reminders [reminders addreminder]
+  (html
+   [:div {:class "wrapper col3"}
+      [:div {:id "container"}
+       [:div {:class "homepage"}
+	[:ul
+	 [:li [:h2 "Item 1"][:p "This is item 1"]]
+	 [:li [:p reminders]]
+	 [:li {:class "last"} [:p addreminder]]]
+	[:br {:class "clear"}]]]]))
 
-(defn home-view-data []
-   [:div (link-to "reminders" "You Reminders!")])
+(defn wrapper-col-3-login-register [content]
+  (html
+  [:div {:class "wrapper col3"}
+      [:div {:id "container"}
+       [:div {:class "homepage"}
+       [:p content]]]]))
 
-(defn home-view []
-  (data-view "Home" (home-view-data)))
-             
 (defn permission-denied-view []
  [:div
   [:h3 "Permission Denied"]
@@ -98,24 +97,13 @@
   [:div (link-to "home" "Home")]])
 
 (defn format-reminder [reminder]
-  [:div
-   [:h3 (:title reminder)]
-   [:p (:date reminder)]
-   [:p (:body reminder)]])
-
-(defn query [type data]
-  (ensure-any-role-if (= type "Member") #{:member}
-		      (= type "Admin") #{:admin}
-		      data))
+   [:p (:date reminder) " " (:body reminder)])
 
 (defn get-reminders-data []
-  [:div (link-to "/reminders/add" "Add Reminder")]
-  [:br]
   [:div (map format-reminder (db/get-reminders "Dale"))])
 
 (defn get-user-reminders-view []
-  (data-view "Reminders"
-      (query "Member" (get-reminders-data))))
+      (query "Member" (get-reminders-data)))
 
 (defn add-reminder-view-data []
   (form-to [:post "/reminders/add"]
@@ -130,15 +118,34 @@
 (defn add-reminder-view []
   (query "Member" (add-reminder-view-data)))
 
+(defn register-user-view []
+  (form-to [:post "/register"]
+	   [:fieldset
+	    [:legend "Create a new user account"]
+	    [:ol
+	     [:li
+	      [:label {:for :username} "User Name"]
+	      (text-field :username)]
+	     [:li
+	      [:label {:for :password} "Password"]
+	      (password-field :password)]
+	     [:li
+	      [:label {:for :email} "Email Address"]
+	      (text-field :email)]]
+	    [:button {:type "submit"} "Register!"]]))
+
+(comment ******************** Post functions ************************)
+
 (defn add-reminder-post [reminder]
   (do
     (db/add-reminder (current-username) (get-body reminder) (get-date reminder) (get-location reminder))
     (ringresp/redirect "/reminders")))
 
-(comment ******************** Post functions ************************)
+(defn register-user-post[username password email]
+  (do
+    (db/add-user username password email)
+    (ringresp/redirect "/login")))
 
-(defn add-reminder [title body date]
-  (db/add-reminder body date (current-username)))
 
 (comment ******************** user validation ***********************)
 
@@ -173,20 +180,21 @@
 (comment ************************* Routes and security config ***************************)
 
 (defroutes my-routes
-  (GET "/" [] (layout (home-view)))
-  (GET "/reminders" [] (layout (get-user-reminders-view)))
-  (GET "/reminders/add" [] (layout (add-reminder-view)))
+  (GET "/reminders" [] (layout (wrapper-col-3-reminders ((get-user-reminders-view) (add-reminder-view)))))
   (POST "/reminders/add" [reminder] (add-reminder-post reminder))
+  (GET "/register" [] (layout (wrapper-col-3-login-register (register-user-view))))
+  (POST "/register" [username password email] (register-user-post username password email))
   (GET "/logout*" [] (logout! properties))
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
   (GET "/remservice/reminders" {params :params} (service/get-service-reminders params))
   (GET "/remservice/hello" {params :params} (service/hello params))
-  (form-authentication-routes (fn [_ c] (layout c))
-                              (form-authentication-adapter)))
+  (form-authentication-routes (fn [_ c] (layout (wrapper-col-3-login-register c)))
+			      (form-authentication-adapter)))
 
 (def security-config
      [#"/login.*" :ssl
+      #"/register.*" :ssl
       #".*.css|.*.png" :any-channel
       #".*" :nossl])
 

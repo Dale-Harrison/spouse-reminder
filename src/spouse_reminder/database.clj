@@ -2,6 +2,7 @@
   (:use somnium.congomongo)
   (:use clj-time.core)
   (:use clj-time.format)
+  (:use clj-time.coerce)
   (:use clojure.contrib.json)
   (:require [clojure.contrib.str-utils2 :as string]))
 
@@ -20,10 +21,10 @@
   (assoc map :_id (str (map :_id)))) 
 
 (defn add-reminder [user body date location]
-  (insert! :reminders {:user user :body body :date (parse short-formatter date) :location location :addedon (now)}))
+  (insert! :reminders {:user user :body body :date date :location location :addedon (to-long (now))}))
 
-(defn add-user [username password email spouse]
-  (insert! :users {:username username :password password :email email :spouse spouse}))
+(defn add-user [username password email]
+  (insert! :users {:username username :password password :email email :usertype "Member"}))
 
 (defn get-spouse [user]
   (map :spouse
@@ -34,7 +35,8 @@
 (defn get-reminders [user]
   (fetch
    :reminders
-   :where {:user user}))
+   :where {:user user}
+   :sort {:addedon -1}))
 
 (defn get-reminders-json [user]
   (str "{\"reminders\": " (json-str (map string-id (get-reminders user))) "}"))

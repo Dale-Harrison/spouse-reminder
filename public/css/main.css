@@ -6,12 +6,6 @@ Author URI: http://www.os-templates.com/
 Licence: <a href="http://www.os-templates.com/template-terms">Website Template Licence</a>
 */
 
-@import url(navi.css);
-@import url(forms.css);
-@import url(tables.css);
-@import url(featured_slide.css);
-
-
 body{
 	margin:0;
 	padding:0;
