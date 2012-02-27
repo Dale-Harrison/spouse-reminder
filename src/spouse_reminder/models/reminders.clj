@@ -37,10 +37,10 @@
    :sort {:addedon -1}))
 
 (defn format-reminder [reminder]
-   [:p (:date reminder) " " (:body reminder)])
+   [:p (:date reminder) " - " (:body reminder)])
 
-(defn get-all-reminders []
-  [:div (map format-reminder (get-reminders (use/me)))])
+(defn get-all-reminders [user]
+  [:div (map format-reminder (get-reminders user))])
 
 (defn add-reminder [reminder]
   (insert! :reminders {:user (use/me)

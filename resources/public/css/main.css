@@ -38,6 +38,8 @@ a{
 .imgl{float:left; margin:0 8px 8px 0; clear:left;}
 .imgr{float:right; margin:0 0 8px 8px; clear:right;}
 
+.Submit {float:right; width:90px;}
+
 /* ----------------------------------------------Wrapper-------------------------------------*/
 
 div.wrapper{
@@ -153,7 +155,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	padding:0;
 	}
 
-.homepage li.last{margin-right:0;}
+.homepage li.last{margin-right:0; width:185px;}
 
 .homepage li h2{
 	display:block;

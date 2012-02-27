@@ -9,7 +9,9 @@
    (html5
     [:head
      (include-css "/css/main.css")
-     (include-js "/js/jquery.form.js")]
+     (include-js "http://code.jquery.com/jquery-1.7.1.js")
+     (include-js "http://malsup.github.com/jquery.form.js")
+     (include-js "/js/javascript.js")]
     [:body {:id "top"}
      [:div {:class "wrapper col1"}
       [:div {:id "header"}
