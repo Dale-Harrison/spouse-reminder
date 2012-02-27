@@ -13,20 +13,6 @@
 	    [compojure.handler :as handler]
 	    [ring.util.response :as ringresp]))
 
-(comment *********************** security config *********************)
-
-(def properties
-     {:username "Username"
-      :password "Password"
-      :username-validation-error "Enter either admin or member"
-      :password-validation-error "Enter a password!"
-      :logout-page "/after-logout"})
-
-(defn query [type data]
-  (ensure-any-role-if (= type "Member") #{:member}
-		      (= type "Admin") #{:admin}
-		      data))
-
 (comment *********************** regular expressions ********************)
 
 (defn first-match [m]
@@ -103,7 +89,7 @@
   [:div (map format-reminder (db/get-reminders "Dale"))])
 
 (defn get-user-reminders-view []
-      (query "Member" (get-reminders-data)))
+      (get-reminders-data))
 
 (defn add-reminder-view-data []
   (form-to [:post "/reminders/add"]
@@ -116,7 +102,7 @@
 		[:button {:type "submit"} "Post!"]]]))
 
 (defn add-reminder-view []
-  (query "Member" (add-reminder-view-data)))
+  (add-reminder-view-data))
 
 (defn register-user-view []
   (form-to [:post "/register"]
@@ -158,24 +144,6 @@
   (if (= (db/get-user-password username) password)
     true
     false))
- 
-(defrecord DemoAdapter []
-  FormAuthAdapter
-  (load-user
-   [this username password]
-   (let [login {:username username :password password}]
-     (if (is-member username)
-         (merge login {:roles #{:member}})
-          login)))
-  (validate-password
-   [this]
-   (fn [m]
-     (if (= (:username m) (:password m))
-       m
-       (add-validation-error m "Password is incorrect!")))))
-
-(defn form-authentication-adapter []
-  (merge (DemoAdapter.) properties))
 
 (comment ************************* Routes and security config ***************************)
 
@@ -188,23 +156,11 @@
   (GET "/after-logout" [] (layout (after-logout-view)))
   (GET "/permission-denied*" [] (layout (permission-denied-view)))
   (GET "/remservice/reminders" {params :params} (service/get-service-reminders params))
-  (GET "/remservice/hello" {params :params} (service/hello params))
-  (form-authentication-routes (fn [_ c] (layout (wrapper-col-3-login-register c)))
-			      (form-authentication-adapter)))
-
-(def security-config
-     [#"/login.*" :ssl
-      #"/register.*" :ssl
-      #".*.css|.*.png" :any-channel
-      #".*" :nossl])
+  (GET "/remservice/hello" {params :params} (service/hello params)))
 
 (def app (-> my-routes
 	     handler/api
-             (with-security form-authentication)
 	     wrap-stateful-session
-             (wrap-file "public")
-             (with-secure-channel security-config 8080 8443)))
+             (wrap-file "public"))
 
-(run-jetty (var app) {:join? false :ssl? true :port 8080 :ssl-port 8443
-                        :keystore "my.keystore"
-                        :key-password "foobar"})
+(run-jetty (var app) {:join? false :ssl? true :port 8080})
