@@ -22,13 +22,11 @@
 (defn me []
   (sessions/get :username))
 
+
+
 ;; Operations
 
-(defn add-user [userg]
-  (insert! :users {:username (:username userg)
-		   :password (:password userg)
-		   :email (:email userg)
-		   :usertype "Member"}))
+
 
 (defn get-user [userg]
   (fetch
@@ -58,3 +56,13 @@
 	  (sessions/put! :username username)
           (str "Invalid username or password")))))
 
+(defn logout! []
+  (sessions/clear!))
+
+(defn add-user [userg]
+  (do
+    (insert! :users {:username (:username userg)
+		   :password (:password userg)
+		   :email (:email userg)
+		     :usertype "Member"})
+    (login! {:username (:username userg) :password (:password userg)})))

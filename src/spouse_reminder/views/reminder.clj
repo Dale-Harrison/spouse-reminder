@@ -61,5 +61,10 @@
   (if (usermod/user?)
     (remins/add-reminder reminders)
     (resp/redirect "/login")))
+
+(defpage "/logout" []
+  (do
+    (usermod/logout!)
+    (resp/redirect "/login")))
     
 	    

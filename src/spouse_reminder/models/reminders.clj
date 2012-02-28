@@ -4,6 +4,7 @@
   (:use clj-time.format)
   (:use clj-time.coerce)
   (:use clojure.contrib.json)
+  (:refer-clojure :exclude [extend])
   (:require [clojure.contrib.str-utils2 :as string]
 	    [spouse-reminder.models.users :as use]))
 
@@ -33,8 +34,7 @@
 (defn get-reminders [userget]
   (fetch
    :reminders
-   :where {:user userget}
-   :sort {:addedon -1}))
+   :where {:user userget}))
 
 (defn format-reminder [reminder]
    [:p (:date reminder) " - " (:body reminder)])

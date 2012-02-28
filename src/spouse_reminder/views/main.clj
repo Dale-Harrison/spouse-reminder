@@ -21,7 +21,7 @@
        [:br {:class "clear"}]]]
      content
      [:div {:class "wrapper col4"}
-      [:div {:id "footer"} "This is the bottom"]]
+      [:div {:id "footer"} (link-to "/logout" "Logout")]]
      [:div {:class "wrapper col5"}
       [:div {:id "copyright"}
        (str "You are logged in as tofix")]]]))
