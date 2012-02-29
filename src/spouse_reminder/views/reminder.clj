@@ -14,16 +14,23 @@
    [:br]
    (submit-button {:class "Submit"} "Post!")])
 
+(defpartial get-reminders-formatted-dyn []
+   [:h2 "Reminders"][:p (remins/get-all-reminders (usermod/me))])
+	 
+
 (defpartial get-reminders-formatted []
-   [:div {:class "wrapper col3"}
-      [:div {:id "container"}
+  [:div {:class "wrapper col3"}
+    [:div {:id "container"}
        [:div {:class "homepage"}
 	[:ul
-	 [:li [:h2 "What is it?"][:p "Spouse Reminder is for all those wives sick of their husband not listening, and for husbands to no longer listen to their wives nagging on about some chore that needs to be done around the house."]]
-	 [:li [:h2 "Reminders"][:p (remins/get-all-reminders (usermod/me))]]
-	 [:li {:class "last"} [:h2 "Add Reminder"] [:p (add-reminder-fields)]]]
-	[:br {:class "clear"}]]]])
-
+	 [:li
+	  [:h2 "How to future nag!"][:p "Simply put in a reminder in the following format."]
+	  [:p [:b "My Reminder Detail yyyy/mm/dd tt:mm @location"]]
+	  [:p "For example:"]
+	  [:p [:b "Pick up milk 28/02/2012 17:00 @Sainsburys"]]]
+	  [:li {:id "dyn"} (get-reminders-formatted-dyn)]
+	  [:li {:class "last"} [:h2 "Add Reminder"] [:p (add-reminder-fields)]]]
+	 [:br {:class "clear"}]]]])
 (defpartial get-login-formatted []
   [:div {:class "wrapper col3"}
    [:div {:id "container"}
@@ -61,6 +68,9 @@
   (if (usermod/user?)
     (remins/add-reminder reminders)
     (resp/redirect "/login")))
+
+(defpage "/reminders/dyn" []
+  (get-reminders-formatted-dyn))
 
 (defpage "/logout" []
   (do

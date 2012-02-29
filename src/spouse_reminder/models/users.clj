@@ -60,9 +60,7 @@
   (sessions/clear!))
 
 (defn add-user [userg]
-  (do
     (insert! :users {:username (:username userg)
-		   :password (:password userg)
-		   :email (:email userg)
-		     :usertype "Member"})
-    (login! {:username (:username userg) :password (:password userg)})))
+		     :password (:password userg)
+		     :email (:email userg)
+		     :usertype "Member"}))

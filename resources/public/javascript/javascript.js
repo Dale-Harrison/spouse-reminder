@@ -2,7 +2,7 @@
 // prepare the form when the DOM is ready 
 $(document).ready(function() { 
     var options = { 
-        target:        '#n',   // target element(s) to be updated with server response 
+        //target:        '#nag',   // target element(s) to be updated with server response 
         beforeSubmit:  showRequest,  // pre-submit callback 
         success:       showResponse  // post-submit callback 
  
@@ -15,8 +15,8 @@ $(document).ready(function() {
  
         // $.ajax options can be used here too, for example: 
         //timeout:   3000 
-    }; 
- 
+    };
+
     // bind to the form's submit event 
     $('#nag').submit(function() { 
         // inside event callbacks 'this' is the DOM element so we first 
@@ -39,8 +39,8 @@ function showRequest(formData, jqForm, options) {
     // DOM element for the form do this: 
     // var formElement = jqForm[0]; 
  
-    alert('About to submit: \n\n' + queryString); 
- 
+    //alert('About to submit: \n\n' + queryString); 
+    $("#nag").attr("disabled", "disabled");
     // here we could return false to prevent the form from being submitted; 
     // returning anything other than false will allow the form submit to continue 
     return true; 
@@ -59,6 +59,12 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // property set to 'json' then the first argument to the success callback 
     // is the json data object returned by the server 
  
-    alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
-        '\n\nThe output div should have already been updated with the responseText.'); 
-} 
+   // alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
+    //    '\n\nThe output div should have already been updated with the responseText.');
+
+    $("#nag").removeAttr("disabled");
+    $('#nag').focus(function () {
+        $(this).val("");
+    });
+    $('#dyn').fadeOut('slow').load('/reminders/dyn').fadeIn("slow");
+}

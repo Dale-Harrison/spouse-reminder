@@ -34,13 +34,21 @@
 (defn get-reminders [userget]
   (fetch
    :reminders
-   :where {:user userget}))
+   :where {:user userget}
+   :limit 5))
 
 (defn format-reminder [reminder]
    [:p (:date reminder) " - " (:body reminder)])
 
 (defn get-all-reminders [user]
   [:div (map format-reminder (get-reminders user))])
+
+(defn get-reminders-after-last-update [user longtime]
+  (fetch
+   :reminders
+   :where {:users userget
+	   :addedon {:$gt longtime}}))
+  
 
 (defn add-reminder [reminder]
   (insert! :reminders {:user (use/me)

@@ -7,25 +7,26 @@
         [spouse-reminder.models.users :as userreg]
         [noir.response :as resp]))
 
-(defpartial get-register-formatted []
-  [:div {:class "wrapper col3"}
-   [:div {:id "container"}
-    [:div {:class "homepage"}
-     (form-to [:post "/login"]
-	      [:table
-	       [:tr
-	        [:td (label "u" "Username: ")][:td(text-field "username")]]
-	       [:tr
-	        [:td (label "p" "Password: ")][:td(password-field "password")]]
-	       [:tr
-		[:td (label "e" "Email Address: ")][:td(text-field "email")]]]
-              (submit-button {:class "submit"} "Submit"))]]])
+(defpartial user-fields [{:keys [username password email]}]
+  (label "username" "Username :")
+  (text-field "username" username)
+  (label "password" "Password: ")
+  (password-field "password" password)
+  (label "email" "Email Address: ")
+  (text-field "email" email))
+
+
+  
 
 (defpage "/register" {:as register}
            (main/layout
-             (get-register-formatted)))
+             [:div {:class "wrapper col3"}
+	      [:div {:id "container"}
+	       [:div {:class "homepage"}
+		(form-to [:post "/login"]
+		 (user-fields register)
+		  (submit-button {:class "submit"} "Submit"))]]]))
 
 (defpage [:post "/register"] {:as register}
-    (userreg/add-user register)
-    (resp/redirect "/reminders"))
+    (userreg/add-user register))
     
