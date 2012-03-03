@@ -1,4 +1,3 @@
-fa
 (ns spouse-reminder.views.reminder
   (:use noir.core
         hiccup.core
@@ -25,10 +24,12 @@ fa
        [:div {:class "homepage"}
 	[:ul
 	 [:li
-	  [:h2 "How to future nag!"][:br ][:p "Simply put in a reminder in the following format."]
-	  [:p [:b "My Reminder Detail yyyy/mm/dd tt:mm @location"]]
-	  [:p "For example:"]
-	  [:p [:b "Pick up milk 28/02/2012 17:00 @Sainsburys"]]]
+	  [:h2 "How to future nag!"]
+	  [:div {:class "reminder"}
+	   [:br ][:p "Simply put in a reminder in the following format."]
+	   [:p [:b "My Reminder Detail yyyy/mm/dd tt:mm @location"]]
+	   [:p "For example:"]
+	   [:p [:b "Pick up milk 28/02/2012 17:00 @Sainsburys"]]]]
 	  [:li {:id "dyn"} (get-reminders-formatted-dyn)]
 	  [:li {:class "last"} [:h2 "Add Reminder"] [:p (add-reminder-fields)]]]
 	[:br {:class "clear"}]]]])

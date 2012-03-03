@@ -15,17 +15,16 @@
   (label "email" "Email Address: ")
   (text-field "email" email))
 
-
-  
-
 (defpage "/register" {:as register}
-           (main/layout
-             [:div {:class "wrapper col3"}
-	      [:div {:id "container"}
-	       [:div {:class "homepage"}
-		(form-to [:post "/login"]
-		 (user-fields register)
-		  (submit-button {:class "submit"} "Submit"))]]]))
+  (if (userreg/user?)
+    (userreg/logout!))
+  (main/layout
+   [:div {:class "wrapper col3"}
+    [:div {:id "container"}
+     [:div {:class "homepage"}
+      (form-to [:post "/login"]
+	       (user-fields register)
+	       (submit-button {:class "submit"} "Submit"))]]]))
 
 (defpage [:post "/register"] {:as register}
     (userreg/add-user register))

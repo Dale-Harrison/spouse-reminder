@@ -4,7 +4,6 @@ body{
 	padding:0;
 	font-size:13px;
 	font-family:verdana, Arial, Helvetica, sans-serif;
-	background: FFE6F7;
 	}
 
 img{display:block; margin:0; padding:0; border:none;}
@@ -45,7 +44,10 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 .col1{color:#CCCCCC; background-image: url('/images/floral.png'); background-size: 100%; }
-.col3{color:#1D1D1D; background-color:#FAF0F7;}
+.col3{color:#1D1D1D;
+      filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAF0F7', endColorstr='#FFFFFF'); /* for IE */
+      background: -webkit-gradient(linear, left top, left bottom, from(#FAF0F7), to(#FFFFFF)); /* for webkit browsers */
+      background: -moz-linear-gradient(top,  #FAF0F7,  #FFFFFF); /* for firefox 3.6+ */ ;}
 .col3 a{color:#95AD19; background-color:#FFFFFF;}
 
 
@@ -70,6 +72,9 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	float:left;
 	width:300px;
 	overflow:hidden;
+	color:#FF4599;
+	font-size:large;
+	font-weight:600;
 	}
 
 #header #logo h1, #header #logo p{
@@ -79,8 +84,9 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 #header #logo h1{
-	font-size:36px;
+	font-size:40px;
 	text-transform:uppercase;
+	font-weight: 800;
 	}
 
 #header h1 a{
@@ -92,7 +98,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	width:100%;
 	margin:15px 0 0 0;
 	padding:0;
-	}
+    	}
 
 .homepage ul{
 	margin:0;
@@ -122,6 +128,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	font-size: 20px;
 	line-height:normal;
 	border-bottom:1px dotted #000000;
+	color:#7A7A7A;
 	}
 
 .homepage li h2 img{
@@ -129,12 +136,14 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	margin:-15px 8px 0 0;
 	padding:5px;
 	border:1px solid #999999;
+	color:#7A7A7A;
 	}
 
 .homepage p{
 	margin:0 0 25px 0;
 	padding:0;
 	line-height:1.6em;
+	color: #7A7A7A;
 	}
 	
 .reminder
@@ -144,7 +153,6 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
     padding: 10px 10px 5px 10px;
     margin: 10px 5px 5px 5px;
     border-radius: 15px;
+    color: #7A7A7A;
 
 }
-
-
