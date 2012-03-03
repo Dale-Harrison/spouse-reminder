@@ -14,9 +14,9 @@
     true
     false))
 
-(defpage "/remservice" {:keys [username password lastupdate]}
+(defpage "/remservice/reminders" {:keys [username password lastupdate]}
   (if (service-auth-request username password)
-    (rems/get-reminders-json username)
+    (rems/get-reminders-after-last-update-json username lastupdate)
     (str "Authentication Error")))
 
 (defpage "/remservice/hello" {:keys [username password]}

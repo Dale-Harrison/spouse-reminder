@@ -17,6 +17,9 @@
 
 (mongo! :db "reminders")
 
+(def short-formatter (formatter "dd/MM/yyyy HH:mm"))
+(def readable-formatter (formatter "dd-MMM-yyyy HH:mm"))
+
 (defn first-match [m]
   (if (coll? m) (first m) m))
 
@@ -38,17 +41,19 @@
    :limit 5))
 
 (defn format-reminder [reminder]
-   [:p (:date reminder) " - " (:body reminder)])
+   [:div {:class "reminder"} [:b (unparse readable-formatter (parse short-formatter (:date reminder)))] [:br] (:body reminder)])
 
 (defn get-all-reminders [user]
   [:div (map format-reminder (get-reminders user))])
 
-(defn get-reminders-after-last-update [user longtime]
+(defn get-reminders-after-last-update [userget longtime]
   (fetch
    :reminders
-   :where {:users userget
+   :where {:user userget
 	   :addedon {:$gt longtime}}))
-  
+
+(defn get-all-reminders-after-last-update [user longtime]
+  [:div (map format-reminder (get-reminders-after-last-update user longtime))])
 
 (defn add-reminder [reminder]
   (insert! :reminders {:user (use/me)
@@ -57,11 +62,12 @@
 		       :location (get-location (:body reminder))
 		       :addedon (to-long (now))}))
 
-(def short-formatter (formatter "dd/MM/yyyy HH:mm"))
-
 (defn string-id [map]
   (assoc map :_id (str (map :_id)))) 
 
 (defn get-reminders-json [userget]
   (str "{\"reminders\": " (json-str (map string-id (get-reminders userget))) "}"))
+
+(defn get-reminders-after-last-update-json [userget longtime]
+  (str "{\"reminders\": " (json-str (map string-id (get-reminders-after-last-update userget (Long/parseLong longtime)))) "}"))
 	    
