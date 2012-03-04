@@ -38,7 +38,8 @@
   (fetch
    :reminders
    :where {:user userget}
-   :limit 5))
+   :limit 5
+   :sort {:addedon}))
 
 (defn format-reminder [reminder]
    [:div {:class "reminder"} [:b (unparse readable-formatter (parse short-formatter (:date reminder)))] [:br] (:body reminder)])

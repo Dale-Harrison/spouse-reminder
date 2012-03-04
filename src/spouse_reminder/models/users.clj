@@ -26,10 +26,8 @@
 
 ;; Operations
 
-
-
 (defn get-user [userg]
-  (fetch
+  (fetch-one
    :users
    :where {:username userg}))
 
@@ -59,8 +57,22 @@
 (defn logout! []
   (sessions/clear!))
 
+(defn user-exists? [username]
+  (if (= (get-user username) nil)
+    false
+    true))
+
 (defn add-user [userg]
     (insert! :users {:username (:username userg)
 		     :password (:password userg)
 		     :email (:email userg)
 		     :usertype "Member"}))
+
+(defn process-user-addition [userg]
+  (if (user-exists? (:username userg))
+    false
+    (do
+      (add-user [userg])
+      (sessions/put! (:username userg))
+      true)))
+      
