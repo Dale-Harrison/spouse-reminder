@@ -6,16 +6,9 @@
   (:use clojure.contrib.json)
   (:refer-clojure :exclude [extend])
   (:require [clojure.contrib.str-utils2 :as string]
-	    [spouse-reminder.models.users :as use]))
+	    [spouse-reminder.models.users :as use]
+	    [spouse-reminder.models.heroku-mongo :as db]))
 
-(def conn2
-     (make-connection "spousereminder"
-		      :host "127.0.0.1"
-		      :port 27017))
-
-(set-connection! conn2)
-
-(mongo! :db "reminders")
 
 (def short-formatter (formatter "dd/MM/yyyy HH:mm"))
 (def readable-formatter (formatter "dd-MMM-yyyy HH:mm"))
@@ -35,7 +28,7 @@
     (re-find #"@.*" entry)))
 
 (defn get-reminders [userget]
-  (fetch
+  (db/fetch
    :reminders
    :where {:user userget}
    :limit 5
@@ -48,7 +41,7 @@
   [:div (map format-reminder (get-reminders user))])
 
 (defn get-reminders-after-last-update [userget longtime]
-  (fetch
+  (db/fetch
    :reminders
    :where {:user userget
 	   :addedon {:$gt longtime}}))
@@ -57,7 +50,7 @@
   [:div (map format-reminder (get-reminders-after-last-update user longtime))])
 
 (defn add-reminder [reminder]
-  (insert! :reminders {:user (use/me)
+  (db/insert! :reminders {:user (use/me)
 		       :body (get-body (:body reminder))
 		       :date (get-date (:body reminder))
 		       :location (get-location (:body reminder))

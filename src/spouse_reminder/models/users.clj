@@ -1,15 +1,7 @@
 (ns spouse-reminder.models.users
   (:use somnium.congomongo)
-  (:require [noir.session :as sessions]))
-
-(def conn
-     (make-connection "spousereminder"
-		      :host "127.0.0.1"
-		      :port 27017))
-
-(set-connection! conn)
-
-(mongo! :db "reminders")
+  (:require [noir.session :as sessions]
+	    [spouse-reminder.models.heroku-mongo :as db]))
 
 ;; Gets
 
@@ -23,16 +15,15 @@
   (sessions/get :username))
 
 
-
 ;; Operations
 
 (defn get-user [userg]
-  (fetch-one
+  (db/fetch-one
    :users
    :where {:username userg}))
 
 (defn get-user-type [userg]
-  (get (fetch-one
+  (get (db/fetch-one
 	:users
 	:where {:username userg})
 	:usertype))
@@ -43,7 +34,7 @@
     false))
 
 (defn get-user-password [userg]
-  (get (fetch-one :users
+  (get (db/fetch-one :users
 		  :where {:username userg})
        :password))
 
@@ -63,7 +54,7 @@
     true))
 
 (defn add-user [userg]
-    (insert! :users {:username (:username userg)
+    (db/insert! :users {:username (:username userg)
 		     :password (:password userg)
 		     :email (:email userg)
 		     :usertype "Member"}))
