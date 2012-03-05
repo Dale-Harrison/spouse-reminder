@@ -51,7 +51,7 @@
     false))
 
 (defn get-user-password [userg]
-  (get (db/fetch-one :users
+  (get (fetch-one :users
 		  :where {:username userg})
        :password))
 
