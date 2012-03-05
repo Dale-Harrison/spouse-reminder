@@ -1,4 +1,4 @@
-(ns spouse-reminder.models.heroku-mongo
+(ns spouse-reminder.models.database
   (:use somnium.congomongo)
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
 

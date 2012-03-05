@@ -7,7 +7,7 @@
   (:refer-clojure :exclude [extend])
   (:require [clojure.contrib.str-utils2 :as string]
 	    [spouse-reminder.models.users :as use]
-	    [spouse-reminder.models.heroku-mongo :as db]))
+	    [spouse-reminder.models.database :as db]))
 
 
 (def short-formatter (formatter "dd/MM/yyyy HH:mm"))

@@ -1,7 +1,7 @@
 (ns spouse-reminder.models.users
   (:use somnium.congomongo)
   (:require [noir.session :as sessions]
-	    [spouse-reminder.models.heroku-mongo :as db]))
+	    [spouse-reminder.models.database :as db]))
 
 ;; Gets
 
