@@ -1,6 +1,6 @@
 (ns spouse-reminder.models.users
   (:use somnium.congomongo)
-  (:require [noir.session :as sessions]))
+  (:require [noir.session :as sessions])
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
 
 (defn split-mongo-url [url]

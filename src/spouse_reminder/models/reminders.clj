@@ -6,8 +6,8 @@
   (:use clojure.contrib.json)
   (:refer-clojure :exclude [extend])
   (:require [clojure.contrib.str-utils2 :as string]
-	    [spouse-reminder.models.users :as use]))
-  (:use [somnium.congomongo.config :only [*mongo-config*]]))
+	    [spouse-reminder.models.users :as use])
+  (:use [somnium.congomongo.config :only [*mongo-config*])))
 
 (defn split-mongo-url [url]
   "Parses mongodb url from heroku, eg. mongodb://user:pass@localhost:1234/db"
