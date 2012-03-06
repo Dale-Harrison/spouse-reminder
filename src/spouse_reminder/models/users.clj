@@ -20,6 +20,8 @@
       (or (collection-exists? :reminders) ;; Create collection named 'firstcollection' if it doesn't exist.
 	  (create-collection! :reminders)))))
 
+(maybe-init)
+
 ;; Gets
 
 (defn admin? []

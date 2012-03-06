@@ -26,6 +26,8 @@
       (or (collection-exists? :reminders) ;; Create collection named 'firstcollection' if it doesn't exist.
 	  (create-collection! :reminders)))))
 
+(maybe-init)
+
 (def short-formatter (formatter "dd/MM/yyyy HH:mm"))
 (def readable-formatter (formatter "dd-MMM-yyyy HH:mm"))
 
