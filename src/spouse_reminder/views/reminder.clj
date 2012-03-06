@@ -50,9 +50,6 @@
 	   (when-not (usermod/user?)
 	     (resp/redirect "/login")))
 
-(defpage "/" []
-  (resp/redirect "/reminders"))
-
 (defpage "/reminders" {:as reminder}
   (main/layout (get-reminders-formatted)))
 
