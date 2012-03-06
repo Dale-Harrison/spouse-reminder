@@ -22,8 +22,6 @@
 
 (maybe-init)
 
-(add-admin-first)
-
 ;; Gets
 
 (defn admin? []
