@@ -87,7 +87,7 @@
       true)))
 
 (defn update-user [userg]
-  (let [usertemp (get-user up (:username userg))]
+  (let [usertemp (get-user (:username userg))]
     (update! :users usertemp (merge usertemp {:password (:password userg) :email (:email userg)}))))
   
       
