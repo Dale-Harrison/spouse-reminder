@@ -43,7 +43,7 @@
 	       (submit-button {:class "submit"} "Submit"))]]]))
 
 (defpage [:post "/account"] {:as account}
-  (if (valid? register)
+  (if (valid? account)
     (do
       (userreg/update-user register)
       (resp/redirect "/reminders"))
