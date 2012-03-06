@@ -14,7 +14,7 @@
 (defpartial user-fields [{:keys [password email]}]
   (vali/on-error :username error-item)
   (label "username" "Username :")
-  (label "username" (usermod/user?)
+  (label "username" (usermod/user?))
   [:br]
   (vali/on-error :password error-item)
   (label "password" "Password: ")
