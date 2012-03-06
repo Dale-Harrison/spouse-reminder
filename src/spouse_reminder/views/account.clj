@@ -3,6 +3,7 @@
         hiccup.core
         hiccup.page-helpers
 	hiccup.form-helpers)
+  (:require [noir.validation :as vali])
   (:require [spouse-reminder.models.users :as usermod]
 	    [spouse-reminder.views.main :as main]
             [noir.response :as resp]))
