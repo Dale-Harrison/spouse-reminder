@@ -22,6 +22,14 @@
 
 (maybe-init)
 
+(defn add-admin-first []
+  (insert! :users {:username "Dale"
+		     :password "12345"
+		     :email "test@test.com"
+		   :usertype "Admin"}))
+
+(add-admin-first)
+
 ;; Gets
 
 (defn admin? []
