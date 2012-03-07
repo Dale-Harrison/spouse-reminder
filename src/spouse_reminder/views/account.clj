@@ -45,6 +45,6 @@
 (defpage [:post "/account"] {:as account}
   (if (valid? account)
     (do
-      (usermod/update-user register)
+      (usermod/update-user account)
       (resp/redirect "/reminders"))
-    (render "/register" register)))
+    (render "/account" account)))
