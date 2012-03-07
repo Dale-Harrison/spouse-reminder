@@ -17,6 +17,6 @@
 
 (defn -main [& m]
   (let [mode (or (first m) :dev)
-        port (Integer. (get (System/getenv) "PORT" "8080"))]
+        port (Integer. (get (System/getenv) "PORT" "80"))]
     (server/start port {:mode (keyword mode)
                         :ns 'spouse-reminder})))
