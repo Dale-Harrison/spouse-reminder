@@ -18,7 +18,7 @@
        [:div {:class "homepage"}
 	[:ul
 	 [:li
-	  (website-detail)]]
+	  (website-details)]]
 	[:br {:class "clear"}]]]]))
 
 (defpage "/" []
