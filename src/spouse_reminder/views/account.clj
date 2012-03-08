@@ -29,7 +29,7 @@
   (vali/rule (vali/has-value? password)
              [:password "You must have a password"])
   (vali/rule (vali/is-email? email)
-	     [:email "Please provide a correctly formatted email address."])
+	     [:email "Please provide a correctly formatted email address"])
   (not (vali/errors? :username :password :email)))
 
 
