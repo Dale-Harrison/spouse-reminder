@@ -237,20 +237,12 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 }
 
-@media screen {
-	div#preloader {
-		position: absolute;
-		left: -9999px;
-		top:  -9999px;
-		}
-	div#preloader img {
-		display: block;
-		}
-	}
-@media print {
-	div#preloader, 
-	div#preloader img {
-		visibility: hidden;
-		display: none;
-		}
+#preloader img
+{
+height: 0; width: 0; border-width: 0;
+position: absolute;
+bottom: 0;
+left: 0;
+z-index: -30;
+}}
 	}
