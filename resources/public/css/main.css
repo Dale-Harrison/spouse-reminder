@@ -6,16 +6,10 @@ body{
 	font-family:verdana, Arial, Helvetica, sans-serif;
 	}
 
-img{display:block; margin:0; padding:0; border:none;}
-
 br.clear{clear:both; margin-top:-15px;}
 
 .fl_left{float:left;}
 .fl_right{float:right;}
-
-.imgl, .imgr{border:1px solid #999999; padding:5px;}
-.imgl{float:left; margin:0 8px 8px 0; clear:left;}
-.imgr{float:right; margin:0 0 8px 8px; clear:right;}
 
 .Submit {float:right; width:90px;}
 
@@ -128,14 +122,6 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	background-color:#D2E3FA;
 }
 
-#topnav li a:link, #topnav li a:visited, #topnav li a:hover{
-	display:block;
-	margin:0;
-	padding:15px 20px;
-	color:#999999;
-	background-color:#D2E3FA;
-	
-	}
 
 #topnav li.last a{
 	margin-right:0;
