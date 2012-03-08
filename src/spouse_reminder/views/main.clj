@@ -14,7 +14,7 @@
      (include-js "http://malsup.github.com/jquery.form.js")
      (include-js "/javascript/javascript.js")]
     [:body {:id "top"}
-     [:div {:class "preload"}
+     [:div {:id "preloader"}
       [:img {:src "/images/floral.jpg" :width "1" :height "1"}]]
      [:div {:class "wrapper col1"}
       [:div {:id "header"}
