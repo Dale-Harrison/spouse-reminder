@@ -122,6 +122,14 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	background-color:#D2E3FA;
 }
 
+#topnav li a:link, #topnav li a:visited, #topnav li a:hover{
+	display:block;
+	margin:0;
+	padding:15px 20px;
+	color:#999999;
+	background-color:#D2E3FA;
+	
+	}
 
 #topnav li.last a{
 	margin-right:0;
