@@ -54,7 +54,7 @@
       (form-to [:post "/register"]
 	       (user-fields register)
 	       [:br]
-	       (submit-button {:class "submit"} "Submit"))]]]))
+	       (submit-button {:class "submit"} "Submit"))]]]]]]]]))
 
 (defpage [:post "/register"] {:as register}
   (if (valid? register)
