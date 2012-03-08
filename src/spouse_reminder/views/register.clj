@@ -44,6 +44,13 @@
    [:div {:class "wrapper col3"}
     [:div {:id "container"}
      [:div {:class "homepage"}
+       [:div {:class "wrapper col3"}
+    [:div {:id "container"}
+     [:div {:class "homepage"}
+      [:ul
+       [:li {:class "middle"}
+        [:h2 "Please Enter your Details"]
+        [:br]
       (form-to [:post "/register"]
 	       (user-fields register)
 	       [:br]
