@@ -17,7 +17,7 @@
     [:div {:id "container"}
        [:div {:class "homepage"}
 	[:ul
-	 [:li
+	 [:li {:class "middle"}
 	  (website-details)]]
 	[:br {:class "clear"}]]]]))
 

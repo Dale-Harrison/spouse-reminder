@@ -1,6 +1,8 @@
 
-// prepare the form when the DOM is ready 
-$(document).ready(function() { 
+// prepare the form when the DOM is ready
+$(document).ready(function () {
+    pic = new Image();
+    pic.src = "/images/floral.jpg";
     var options = { 
         //target:        '#nag',   // target element(s) to be updated with server response 
         beforeSubmit:  showRequest,  // pre-submit callback 

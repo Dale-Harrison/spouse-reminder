@@ -38,12 +38,14 @@
   [:div {:class "wrapper col3"}
    [:div {:id "container"}
     [:div {:class "homepage"}
+     [:ul
+      [:li {:class "middle"}
      (form-to [:post "/login"]
 	      (text-field "username")
 	      [:br]
 	      (password-field "password")
 	      [:br]
-              (submit-button {:class "submit"} "Submit"))]]])
+              (submit-button {:class "submit"} "Submit"))]]]]])
      
 
 (pre-route "/reminders*" {}
