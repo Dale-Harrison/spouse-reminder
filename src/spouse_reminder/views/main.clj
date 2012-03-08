@@ -20,7 +20,7 @@
       [:div {:id "header"}
        [:div {:id "logo"}
 	[:h1 [:a {:href "/"} "Spouse Reminder"]]
-	[:p "Nagging in the future"]]
+	[:p "Nagging in the future!"]]
        [:div {:id "topnav"}
 	[:ul
 	 [:li {:class "active"} [:a {:href "reminders"} "Reminders"]]
