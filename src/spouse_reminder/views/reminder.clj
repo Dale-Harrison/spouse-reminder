@@ -48,9 +48,9 @@
 	       (label "lblpassword" "Password: ")
 	      (password-field "password")
 	      [:br]
-              (submit-button {:class "submit"} "Submit"))]]
-     [:br]
-     [:p "Not a member? "[:a {:href "/register"} "Register"]]]]])
+              (submit-button {:class "submit"} "Submit"))
+       [:br]
+       [:p "Not a member? "[:a {:href "/register"} "Register"]]]]]]])
      
 
 (pre-route "/reminders*" {}
