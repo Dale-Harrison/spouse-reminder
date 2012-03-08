@@ -32,6 +32,11 @@
 	     [:email "Please provide a correctly formatted email address."])
   (not (vali/errors? :username :password :email)))
 
+
+(pre-route "/account*" {}
+	   (when-not (usermod/user?)
+	     (resp/redirect "/login")))
+
 (defpage "/account" {:as account}
   (main/layout
    [:div {:class "wrapper col3"}

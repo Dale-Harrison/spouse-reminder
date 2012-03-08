@@ -40,17 +40,23 @@
     [:div {:class "homepage"}
      [:ul
       [:li {:class "middle"}
-     (form-to [:post "/login"]
+       [:h2 "Please Log In"]
+       (form-to [:post "/login"]
+	      (label "lblusername" "Username: ")
 	      (text-field "username")
 	      [:br]
+	       (label "lblpassword" "Password: ")
 	      (password-field "password")
 	      [:br]
-              (submit-button {:class "submit"} "Submit"))]]]]])
+              (submit-button {:class "submit"} "Submit"))]]
+     [:br]
+     [:p "Not a member? "[:a {:href "/register"} "Register"]]]]])
      
 
 (pre-route "/reminders*" {}
 	   (when-not (usermod/user?)
 	     (resp/redirect "/login")))
+
 
 (defpage "/reminders" {:as reminder}
   (main/layout (get-reminders-formatted)))
