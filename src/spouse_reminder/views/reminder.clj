@@ -41,6 +41,7 @@
      [:ul
       [:li {:class "middle"}
        [:h2 "Please Log In"]
+       [:br]
        (form-to [:post "/login"]
 	      (label "lblusername" "Username: ")
 	      (text-field "username")

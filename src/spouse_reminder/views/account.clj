@@ -42,7 +42,11 @@
    [:div {:class "wrapper col3"}
     [:div {:id "container"}
      [:div {:class "homepage"}
-      (form-to [:post "/account"]
+      [:ul
+       [:li {:class "middle"}
+        [:h2 "Please Log In"]
+        [:br]
+        (form-to [:post "/account"]
 	       (user-fields account)
 	       [:br]
 	       (submit-button {:class "submit"} "Submit"))]]]))
