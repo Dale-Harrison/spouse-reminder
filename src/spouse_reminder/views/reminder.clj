@@ -50,7 +50,7 @@
 	      [:br]
               (submit-button {:class "submit"} "Submit"))
        [:br]
-       [:p "Not a member? "[:a {:href "/register"} "Register"]]]]]]])
+       [:p "Not a member? "[:a {:href "/register"} "register"]]]]]]])
      
 
 (pre-route "/reminders*" {}
