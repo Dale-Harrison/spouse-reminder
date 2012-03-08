@@ -49,7 +49,7 @@
         (form-to [:post "/account"]
 	       (user-fields account)
 	       [:br]
-	       (submit-button {:class "submit"} "Submit"))]]]))
+	       (submit-button {:class "submit"} "Submit"))]]]]]))
 
 (defpage [:post "/account"] {:as account}
   (if (valid? account)
