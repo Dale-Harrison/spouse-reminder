@@ -19,7 +19,7 @@
      [:div {:class "wrapper col1"}
       [:div {:id "header"}
        [:div {:id "logo"}
-	[:h1 [:a {:href "#"} "Spouse Reminder"]]
+	[:h1 [:a {:href "/"} "Spouse Reminder"]]
 	[:p "Nagging in the future"]]
        [:div {:id "topnav"}
 	[:ul
