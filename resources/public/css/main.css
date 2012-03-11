@@ -34,7 +34,8 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 .col1{color:#CCCCCC;
       background-image: url('/images/pink-flower.png');
       background-position:left;
-      background-size: cover:80px 60px;  }
+      background-size: cover:80px 60px;
+      background-repeat:no-repeat;  }
 .col3{color:#1D1D1D;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAF0F7', endColorstr='#FFFFFF'); /* for IE */
       background: -webkit-gradient(linear, left top, left bottom, from(#FAF0F7), to(#FFFFFF)); /* for webkit browsers */
