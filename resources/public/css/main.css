@@ -76,9 +76,14 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 #header #logo h1{
-	font-size:40px;
-	text-transform:uppercase;
-	font-weight: 800;
+	font-size:48px;
+	font-family: times, Times New Roman, times-roman, georgia, serif;	
+	line-height: 40px;
+	letter-spacing: -1px;
+	color: #444;
+	margin: 0 0 0 0;
+	padding: 0 0 0 0;
+        font-weight: 100;
 	}
 
 #header h1 a{

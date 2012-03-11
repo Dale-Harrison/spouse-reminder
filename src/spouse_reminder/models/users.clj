@@ -1,7 +1,9 @@
 (ns spouse-reminder.models.users
   (:use somnium.congomongo)
-  (:require [noir.session :as sessions])
+  (:require [noir.session :as sessions]
+	    [noir.util.crypt :as crypt])
   (:use [somnium.congomongo.config :only [*mongo-config*]]))
+
 
 (defn split-mongo-url [url]
   "Parses mongodb url from heroku, eg. mongodb://user:pass@localhost:1234/db"
@@ -35,6 +37,9 @@
 
 
 ;; Operations
+
+(defn encrypt-password [{password :password :as user}]
+  (assoc user :password (crypt/encrypt password)))
 
 (defn get-user [userg]
   (fetch-one
@@ -78,15 +83,17 @@
 		     :email (:email userg)
 		     :usertype "Member"}))
 
-(defn process-user-addition [userg]
-  (if (user-exists? (:username userg))
-    false
-    (do
-      (add-user [userg])
-      (sessions/put! (:username userg))
+(defn process-user-addition [{:keys [username password email] :as user}]
+  (do
+    (let [user (-> {:username username :password password :email email}
+               (encrypt-password))]
+      (add-user [user])
+      (sessions/put! (:username user))
       true)))
 
-(defn update-user [userg]
+(defn update-user [{:keys [username password email] :as user}]
+  (let [encrypted (-> {:username username :password password :email email}
+               (encrypt-password))]
   (let [usertemp (get-user (:username userg))]
-    (update! :users usertemp (merge usertemp {:password (:password userg) :email (:email userg)}))))
+    (update! :users usertemp (merge usertemp {:password (:password encrypted) :email (:email user)}))))
       

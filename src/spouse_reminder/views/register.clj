@@ -7,6 +7,7 @@
   (:require [spouse-reminder.views.main :as main]
         [spouse-reminder.models.users :as userreg]
         [noir.response :as resp]))
+	
 
 (defpartial error-item [[first-error]]
   [:p.error first-error])
@@ -59,17 +60,19 @@
 (defpage [:post "/register"] {:as register}
   (if (valid? register)
     (do
-      (if (userreg/add-user register)
-	(resp/redirect "/reminders")
-	(do
-	  [:div {:class "wrapper col3"}
-	   [:div {:id "container"}
-	    [:div {:class "homepage"}
-	     (form-to [:post "/register"]
-		      [:p "This username has already been taken."]
-		      (user-fields register)
-		      (submit-button {:class "submit"} "Submit"))]]])))
-    (render "/register" register)))
+      (if (userreg/user-exists? (:username register))
+	  (do
+	    [:div {:class "wrapper col3"}
+	     [:div {:id "container"}
+	      [:div {:class "homepage"}
+	       (form-to [:post "/register"]
+			[:p "This username has already been taken."]
+			(user-fields register)
+			(submit-button {:class "submit"} "Submit"))]]])
+	  (do
+	    (userreg/add-user register)
+	    (resp/redirect "/reminders"))))
+   (resp/render "/register")))
   
       
     
