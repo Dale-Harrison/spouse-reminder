@@ -35,7 +35,11 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
       background-image: url('/images/pink-flower.png');
       background-size: 100%;background-repeat:no-repeat;
       background-attachment:fixed;
-      background-position:center;  }
+      background-position:center;
+      -webkit-background-size: cover;
+      -moz-background-size: cover;
+      -o-background-size: cover;
+      background-size: cover;  }
 .col3{color:#1D1D1D;
       filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#FAF0F7', endColorstr='#FFFFFF'); /* for IE */
       background: -webkit-gradient(linear, left top, left bottom, from(#FAF0F7), to(#FFFFFF)); /* for webkit browsers */
