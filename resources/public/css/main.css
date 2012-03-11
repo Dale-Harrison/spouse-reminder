@@ -101,7 +101,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 #topnav{
 	display:block;
 	float:right;
-	margin:50px 0 0 0;
+	margin:65px 0 0 0;
 	padding:0;
 	list-style:none;
 	font-size:14px;
@@ -121,7 +121,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 {
     float:left;
 	border-radius: 15px;
-	margin:0;
+	margin:5px;
 	padding:0;
 	background-color:#D2E3FA;
 }
