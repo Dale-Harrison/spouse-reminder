@@ -33,9 +33,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 .col1{color:#CCCCCC;
       background-image: url('/images/pink-flower.png');
-      background-size: 100%;background-repeat:no-repeat;
-      background-attachment:fixed;
-      background-position:center;
+      background-position:left;
       -webkit-background-size: cover;
       -moz-background-size: cover;
       -o-background-size: cover;
