@@ -25,6 +25,5 @@
 	[:ul
 	 [:li {:class "active"} [:a {:href "reminders"} "Reminders"]]
 	 [:li [:a {:href "account"} "Account Details"]]
-	 [:li [:a {:href "logout"} "Logout"]]]]
-       [:br {:class "clear"}]]]
+	 [:li [:a {:href "logout"} "Logout"]]]]]]
      content]))
