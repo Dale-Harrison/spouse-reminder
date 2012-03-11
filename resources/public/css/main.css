@@ -86,7 +86,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	}
 
 #links{
-	padding:20px 0;
+	padding:50px 0;
 	}
 
 #links ul{
@@ -114,7 +114,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	list-style:none;
 	margin:0;
 	padding:0;
-	
+	border-radius: 15px;
 	}
 	
 #topnav li
@@ -132,16 +132,20 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	padding:15px 20px;
 	color:#999999;
 	background-color:#D2E3FA;
+	border-radius: 15px;
 	
 	}
 
 #topnav li.last a{
 	margin-right:0;
+
+	border-radius: 15px;
 	}
 
 #topnav li a:hover, #topnav ul li.active a{
 	color:#FFFFFF;
 	background-color:#C2E0FF;
+	border-radius: 15px;
 	}
 	
 #topnav li li a:link, #topnav li li a:visited{
@@ -151,6 +155,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	padding:7px 10px;
 	font-size:12px;
 	font-weight:normal;
+	border-radius: 15px;
 	}
 
 #topnav li ul{
@@ -161,6 +166,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 	width:170px;
 	border-left:1px solid #CCCCCC;
 	border-bottom:1px solid #CCCCCC;
+	border-radius: 15px;
 	}
 
 #topnav li ul a{width:140px;}
@@ -173,7 +179,7 @@ div.wrapper h1, div.wrapper h2, div.wrapper h3, div.wrapper h4, div.wrapper h5, 
 
 #topnav li:hover{position:static;}
 
-#topnav li.last a{margin-right:0;}
+#topnav li.last a{margin-right:0; border-radius: 15px;}
 
 .homepage{
 	display:block;
