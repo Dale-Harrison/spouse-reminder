@@ -14,8 +14,6 @@
      (include-js "http://malsup.github.com/jquery.form.js")
      (include-js "/javascript/javascript.js")]
     [:body {:id "top"}
-     [:div {:id "preloader"}
-      [:img {:src "/images/floral.jpg" :width "1" :height "1"}]]
      [:div {:class "wrapper col1"}
       [:div {:id "header"}
        [:div {:id "logo"}
@@ -26,5 +24,5 @@
 	 [:li {:class "active"} [:a {:href "reminders"} "Reminders"]]
 	 [:li [:a {:href "account"} "Account Details"]]
 	 [:li [:a {:href "logout"} "Logout"]]]]
-       [:br {:class "clear"]]]]
+       [:br {:class "clear"}]]]
      content]))
