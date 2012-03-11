@@ -41,6 +41,7 @@
      [:ul
       [:li {:class "middle"}
        [:h2 "Please Log In"]
+       [:div {:class "reminder"}
        [:br]
        (form-to [:post "/login"]
 	      (label "lblusername" "Username: ")
@@ -51,7 +52,7 @@
 	      [:br]
               (submit-button {:class "submit"} "Submit"))
        [:br]
-       [:p "Not a member? "[:a {:href "/register"} "register"]]]]]]])
+       [:p "Not a member? "[:a {:href "/register"} "register"]]]]]]]])
      
 
 (pre-route "/reminders*" {}
