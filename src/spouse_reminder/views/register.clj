@@ -72,7 +72,7 @@
 	  (do
 	    (userreg/add-user register)
 	    (resp/redirect "/reminders"))))
-   (resp/render "/register")))
+   (render "/register")))
   
       
     
