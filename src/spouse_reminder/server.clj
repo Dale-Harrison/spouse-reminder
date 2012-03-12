@@ -4,7 +4,7 @@
 (server/load-views "src/spouse_reminder/views/")
 
 (defn https-url [request-url]
-  (str "https://" (:server-name request-url) ":" (:server-port request-url) (:uri request-url)))
+  (str "https://" (:server-name request-url) ":443" (:uri request-url)))
 
 (defn require-https
   [handler]
