@@ -95,5 +95,5 @@
   (let [encrypted (-> {:username username :password password :email email}
                (encrypt-password))]
   (let [usertemp (get-user (:username userg))]
-    (update! :users usertemp (merge usertemp {:password (:password encrypted) :email (:email user)}))))
+    (update! :users usertemp (merge usertemp {:password (:password encrypted) :email (:email user)})))))
       
