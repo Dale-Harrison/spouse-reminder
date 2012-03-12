@@ -94,6 +94,6 @@
 (defn update-user [{:keys [username password email] :as user}]
   (let [encrypted (-> {:username username :password password :email email}
                (encrypt-password))]
-  (let [usertemp (get-user (:username userg))]
+  (let [usertemp (get-user (:username user))]
     (update! :users usertemp (merge usertemp {:password (:password encrypted) :email (:email user)})))))
       
