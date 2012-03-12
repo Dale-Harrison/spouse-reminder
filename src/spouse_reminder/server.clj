@@ -17,16 +17,9 @@
 
 (defn -main [& m]
   (let [mode (or (first m) :dev)
-        port (Integer. (get (System/getenv) "PORT" "8080"))
-	ssl-port (Integer. "443")]
-    (def myappserver (server/start ssl-port
+        port (Integer. (get (System/getenv) "PORT" "8080"))]
+    (def myappserver (server/start port
 				   {:mode (keyword mode)
-				    :jetty-options {:port port
-						    :ssl-port ssl-port
-						    :join? false
-						    :ssl? true
-						    :keystore "my.keystore"
-						    :key-password "foobar"}
 				    :ns 'spouse-reminder
 				    :session-cookie-attrs {:max-age 3600
 							   :secure true}}))))
