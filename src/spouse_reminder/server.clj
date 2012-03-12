@@ -17,7 +17,7 @@
 
 (defn -main [& m]
   (let [mode (or (first m) :dev)
-        port (Integer. (get (System/getenv) "PORT" "80"))
+        port (Integer. (get (System/getenv) "PORT" "8080"))
 	ssl-port (Integer. "443")]
     (def myappserver (server/start ssl-port
 				   {:mode (keyword mode)
