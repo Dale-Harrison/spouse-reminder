@@ -16,7 +16,7 @@
 (defn require-https
   [handler]
   (fn [request]
-    (println (x-forwarded-proto request))))
+    (println request)))
 
 (server/add-middleware require-https)
 
