@@ -15,7 +15,8 @@
 
 (defn require-https
   [handler]
-    (println handler))
+  (fn [request]
+    (println request)))
 
 (server/add-middleware require-https)
 
