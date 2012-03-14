@@ -10,7 +10,7 @@
   [handler]
   (fn [request]
     (if (= (:scheme request) :http)
-      (ring.util.response/redirect (https-url request))
+      (ring.util.response/redirect "http://sharp-wind-8679.herokuapp.com")
       (handler request))))
 
 (server/add-middleware require-https)
