@@ -52,10 +52,11 @@
        [:li {:class "middle"}
         [:h2 "Please Enter your Details"]
         [:br]
+	[:div {:class "reminder"}
       (form-to [:post "/register"]
 	       (user-fields register)
 	       [:br]
-	       (submit-button {:class "submit"} "Submit"))]]]]]]]]))
+	       (submit-button {:class "submit"} "Submit"))]]]]]]]]]))
 
 (defpage [:post "/register"] {:as register}
   (if (valid? register)
