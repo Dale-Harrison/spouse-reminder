@@ -27,7 +27,7 @@
 
 (defn valid? [{:keys [username password email]}]
   (vali/rule (vali/min-length? username 3)
-             [:username "Your user name must have more than 1 letters."])
+             [:username "Your user name must have more than 1 letter."])
   (vali/rule (vali/has-value? username)
 	     [:username "Your user name must have a value."])
   (vali/rule (vali/max-length? username 20)
@@ -72,7 +72,7 @@
 	  (do
 	    (userreg/add-user register)
 	    (resp/redirect "/reminders"))))
-   (render "/register")))
+   (render "/register" register)))
   
       
     
