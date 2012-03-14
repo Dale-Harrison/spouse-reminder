@@ -4,7 +4,7 @@
 (server/load-views "src/spouse_reminder/views/")
 
 (defn https-url [request-url]
-  (str "https://" (:server-name request-url)(:uri request-url)))
+  (str "https://sharp-wind-8679.herokuapp.com"))
 
 (defn require-https
   [handler]
@@ -13,7 +13,7 @@
       (ring.util.response/redirect (https-url request))
       (handler request))))
 
-;;(server/add-middleware require-https)
+(server/add-middleware require-https)
 
 (defn -main [& m]
   (let [mode (or (first m) :dev)
