@@ -6,12 +6,17 @@
 (defn https-url [request-url]
   (str "https://sharp-wind-8679.herokuapp.com"))
 
-(defn require-https
+(comment (defn require-https
   [handler]
   (fn [request]
     (if (= (:x-forwarded-proto request) :http)
       (ring.util.response/redirect "https://sharp-wind-8679.herokuapp.com")
-      (handler request))))
+      (handler request)))))
+
+(defn require-https
+  [handler]
+  (fn [request]
+    (println (x-forwarded-proto request))))
 
 (server/add-middleware require-https)
 
