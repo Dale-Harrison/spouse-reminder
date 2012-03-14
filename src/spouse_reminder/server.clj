@@ -6,12 +6,16 @@
 (defn https-url [request-url]
   (str "https://sharp-wind-8679.herokuapp.com"))
 
-(defn require-https
+(comment (defn require-https
   [handler]
   (fn [request]
     (if (= (:scheme request) :http)
       (ring.util.response/redirect "http://sharp-wind-8679.herokuapp.com:443")
-      (handler request))))
+      (handler request)))))
+
+(defn require-https
+  [handler]
+    (println handler))
 
 (server/add-middleware require-https)
 
