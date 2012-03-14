@@ -13,7 +13,7 @@
       (ring.util.response/redirect (https-url request))
       (handler request))))
 
-(server/add-middleware require-https)
+;;(server/add-middleware require-https)
 
 (defn -main [& m]
   (let [mode (or (first m) :dev)
