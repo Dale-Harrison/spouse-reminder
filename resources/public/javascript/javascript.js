@@ -68,5 +68,7 @@ function showResponse(responseText, statusText, xhr, $form)  {
     $('#nag').focus(function () {
         $(this).val("");
     });
-    $('#dyn').fadeOut('slow').delay(500).load('/reminders/dyn').delay(500).fadeIn("slow");
+    $("#dyn").fadeOut().load("/reminders/dyn", function (response, status, xhr) {
+        $(this).fadeIn();
+    });
 }
