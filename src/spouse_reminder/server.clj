@@ -9,7 +9,7 @@
 (defn require-https
   [handler]
   (fn [request]
-    (if (=  (get (:headers request) "x-forwarded-proto") :http)
+    (if (=  (get (:headers request) "x-forwarded-proto") "http")
       (ring.util.response/redirect "https://sharp-wind-8679.herokuapp.com")
       (handler request))))
 
