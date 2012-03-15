@@ -54,7 +54,7 @@
 		  [:tr
 		   [:td [:br]]]
 		  [:tr
-		   [:td (submit-button {:class "submit"} "Submit"))]])
+		   [:td (submit-button {:class "submit"} "Submit")]]])
        [:br]
        [:p "Not a member? "[:a {:href "/register"} "register"]]]]]]]])
      
