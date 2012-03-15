@@ -1,8 +1,7 @@
 
 // prepare the form when the DOM is ready
 $(document).ready(function () {
-    pic = new Image();
-    pic.src = "/images/floral.jpg";
+
     var options = { 
         //target:        '#nag',   // target element(s) to be updated with server response 
         beforeSubmit:  showRequest,  // pre-submit callback 
@@ -36,15 +35,6 @@ function showRequest(formData, jqForm, options) {
     // formData is an array; here we use $.param to convert it to a string to display it 
     // but the form plugin does this for you automatically when it submits the data 
     var queryString = $.param(formData); 
- 
-    // jqForm is a jQuery object encapsulating the form element.  To access the 
-    // DOM element for the form do this: 
-    // var formElement = jqForm[0]; 
- 
-    //alert('About to submit: \n\n' + queryString); 
-    $("#nag").attr("disabled", "disabled");
-    // here we could return false to prevent the form from being submitted; 
-    // returning anything other than false will allow the form submit to continue 
     return true; 
 } 
  
@@ -60,16 +50,10 @@ function showResponse(responseText, statusText, xhr, $form)  {
     // if the ajaxSubmit method was passed an Options Object with the dataType 
     // property set to 'json' then the first argument to the success callback 
     // is the json data object returned by the server 
- 
-   // alert('status: ' + statusText + '\n\nresponseText: \n' + responseText + 
-    //    '\n\nThe output div should have already been updated with the responseText.');
 
-    $("#nag").removeAttr("disabled");
     $('#nag').focus(function () {
         $(this).val("");
     });
-    $("#dyn").fadeOut().delay(1000).load("/reminders/dyn", function (response, status, xhr) {
-        
-        $(this).fadeIn();
-    });
+
+    #("#dyn").fadeOut(300).delay(1000).load("/reminders/dyn").fadeIn(300);
 }
