@@ -43,14 +43,18 @@
        [:h2 "Please Log In"]
        [:div {:class "reminder"}
        [:br]
-       (form-to [:post "/login"]
-	      (label "lblusername" "Username: ")
-	      (text-field "username")
-	      [:br]
-	       (label "lblpassword" "Password: ")
-	      (password-field "password")
-	      [:br]
-              (submit-button {:class "submit"} "Submit"))
+	(form-to [:post "/login"]
+		 [:table
+		  [:tr
+		   [:td (label "lblusername" "Username: ")][:td (text-field "username")]]
+		  [:tr
+		   [:td [:br]]]
+		  [:tr
+		   [:td (label "lblpassword" "Password: ")][:td (password-field "password")]]
+		  [:tr
+		   [:td [:br]]]
+		  [:tr
+		   [:td (submit-button {:class "submit"} "Submit"))]])
        [:br]
        [:p "Not a member? "[:a {:href "/register"} "register"]]]]]]]])
      
