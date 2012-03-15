@@ -54,12 +54,12 @@
        [:li {:class "middle"}
         [:h2 "Please Log In"]
         [:br]
-	[:div {:class "reminder"
+	[:div {:class "reminder"}
         (form-to [:post "/account"]
 		 [:table
 	       (user-fields account)
 	       [:br]
-	       (submit-button {:class "submit"} "Submit"))]]]]]]]))
+	       (submit-button {:cass "submit"} "Submit")])]]]]]]))
 
 (defpage [:post "/account"] {:as account}
   (if (valid? account)
