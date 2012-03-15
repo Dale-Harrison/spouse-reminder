@@ -13,17 +13,25 @@
   [:p.error first-error])
 
 (defpartial user-fields [{:keys [password email]}]
-  (vali/on-error :username error-item)
-  (label "username" "Username :")
-  (label "username" (usermod/user?))
-  [:br]
-  (vali/on-error :password error-item)
-  (label "password" "Password: ")
-  (password-field "password")
-  [:br]
-  (vali/on-error :email error-item)
-  (label "email" "Email Address: ")
-  (text-field "email"))
+  [:tr
+   [:td
+    (vali/on-error :username error-item)
+    (label "username" "Username :")]
+   [:td
+    (label "username" (usermod/user?))]]
+  [:tr
+   [:td [:br]]]
+  [:tr
+   [:td
+    (vali/on-error :password error-item)
+    (label "password" "Password: ")]
+   [:td (password-field "password")]]
+  [:tr
+   [:td [:br]]]
+  [:tr
+   [:td (vali/on-error :email error-item)
+    (label "email" "Email Address: ")]
+   [:td (text-field "email"))])
 
 (defn valid? [{:keys [password email]}]
   (vali/rule (vali/has-value? password)
@@ -46,10 +54,12 @@
        [:li {:class "middle"}
         [:h2 "Please Log In"]
         [:br]
+	[:div {:class "reminder"
         (form-to [:post "/account"]
+		 [:table
 	       (user-fields account)
 	       [:br]
-	       (submit-button {:class "submit"} "Submit"))]]]]]))
+	       (submit-button {:class "submit"} "Submit"))]]]]]]]))
 
 (defpage [:post "/account"] {:as account}
   (if (valid? account)
