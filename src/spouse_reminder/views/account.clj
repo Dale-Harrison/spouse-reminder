@@ -31,7 +31,7 @@
   [:tr
    [:td (vali/on-error :email error-item)
     (label "email" "Email Address: ")]
-   [:td (text-field "email"))])
+   [:td (text-field "email")]])
 
 (defn valid? [{:keys [password email]}]
   (vali/rule (vali/has-value? password)
