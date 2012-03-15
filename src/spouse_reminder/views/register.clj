@@ -50,9 +50,6 @@
    [:div {:class "wrapper col3"}
     [:div {:id "container"}
      [:div {:class "homepage"}
-       [:div {:class "wrapper col3"}
-    [:div {:id "container"}
-     [:div {:class "homepage"}
       [:ul
        [:li {:class "middle"}
         [:h2 "Please Enter your Details"]
@@ -62,7 +59,7 @@
 		  [:table
 	       (user-fields register)
 	       [:br]
-	       (submit-button {:class "submit"} "Submit"))]]]]]]]]]]))
+	       (submit-button {:class "submit"} "Submit")])]]]]]]))
 
 (defpage [:post "/register"] {:as register}
   (if (valid? register)
