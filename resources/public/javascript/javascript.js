@@ -3,7 +3,7 @@
 $(document).ready(function () {
 
     var options = { 
-        //target:        '#nag',   // target element(s) to be updated with server response 
+        target:        '#nag',   // target element(s) to be updated with server response 
         beforeSubmit:  showRequest,  // pre-submit callback 
         success:       showResponse  // post-submit callback 
  
